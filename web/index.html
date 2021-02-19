@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Dowloader</title>
+
+	<!-- Links -->
+	 <link rel="shortcut icon" href="favicon.png" type="image/png">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="eel.js"></script>
+</head>
+<body>
+	<div class="margin">
+		<input type="text" name="url" id="Url" placeholder="Enter url:">
+		<button id="get">Dowload</button>
+		<div id="title_video" class="title_video"></div>
+		<img id="previu_img" class="previu_img" src="video-icon.png">
+	</div>
+	<script src="jquery-3.5.1.min.js"></script>
+	<script>
+		//Async function for Python eel
+		async function putUrl() {
+			// Get elements at JavaScript
+			let button = document.getElementById('get');
+			let entry = document.getElementById('Url').value;
+
+			// Python function
+			await eel.dowload(entry);
+		}
+
+		eel.expose(video_return);
+		function video_return(title, previu) {
+			let titvid = document.getElementById('title_video');
+			let previd = document.getElementById('previu_img');
+
+			previd.src = previu;
+
+			titvid.innerHTML = title;
+			previd.innerHTML = previu;
+		}
+
+		$('#get').click(function() {
+			putUrl();
+			video_return();
+		});
+	</script>
+</body>
+</html>
